@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.ivarshav.pipcompileplugin.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.ivarshav.pipcompileplugin.MyBundle
 
 class MyApplicationService {
 

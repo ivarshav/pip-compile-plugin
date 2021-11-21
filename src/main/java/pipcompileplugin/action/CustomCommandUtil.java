@@ -1,4 +1,4 @@
-package com.github.ivarshav.pipcompileplugin.action;
+package pipcompileplugin.action;
 
 import com.intellij.execution.filters.TextConsoleBuilderFactory;
 import com.intellij.execution.ui.ConsoleView;

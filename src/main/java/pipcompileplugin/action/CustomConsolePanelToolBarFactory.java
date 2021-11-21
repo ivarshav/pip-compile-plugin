@@ -1,4 +1,4 @@
-package com.github.ivarshav.pipcompileplugin.action;
+package pipcompileplugin.action;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;

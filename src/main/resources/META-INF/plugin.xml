@@ -5,26 +5,34 @@
     <vendor>ivarshav</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
 <!--    <depends>com.intellij.modules.lang</depends>-->
 <!--    <depends>com.intellij.modules.python</depends>-->
 <!--    <depends>PythonCore</depends>-->
 
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="CustomConsole" anchor="bottom" factoryClass="com.github.ivarshav.pipcompileplugin.action.CustomConsolePanelToolBarFactory"/>
+<!--        <toolWindow id="CustomConsole" anchor="bottom" factoryClass="pipcompileplugin.action.CustomConsolePanelToolBarFactory"/>-->
 <!--        <applicationService serviceImplementation="com.github.ivarshav.pipcompileplugin.services.MyApplicationService"/>-->
 <!--        <projectService serviceImplementation="com.github.ivarshav.pipcompileplugin.services.MyProjectService"/>-->
 <!--        <lang.inspectionSuppressor language="Python" implementationClass="pipcompileplugin.RunPipCompile"/>-->
+        <applicationConfigurable id="OpenInTerminal.settings" instance="pipcompileplugin.action.OpenInTerminalSettingsConfigurable"/>
+        <applicationService serviceImplementation="pipcompileplugin.action.OpenInTerminalSettings"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <group id="LIStudio.Remote.All" popup="true" class="com.github.ivarshav.pipcompileplugin.action.CustomActionGroup">
-            <add-to-group group-id="MainMenu" anchor="before" relative-to-action="HelpMenu"/>
-            <action
-                    class="com.github.ivarshav.pipcompileplugin.action.CommandLineAction"
-                    id="generalCommand.action.pipCompile" text="RunCommand" description="Run command action example"/>
-        </group>
+<!--        <group id="LIStudio.Remote.All" popup="true" class="pipcompileplugin.action.CustomActionGroup">-->
+<!--            <add-to-group group-id="ProjectViewPopupMenu" relative-to-action="CutCopyPasteGroup" anchor="before"/>-->
+<!--            <action-->
+<!--                    class="pipcompileplugin.action.CommandLineAction"-->
+<!--                    id="generalCommand.action.pipCompile" text="RunCommand" description="Run command action example"/>-->
+<!--        </group>-->
+        <action id="OpenInTerminal.open.current" class="pipcompileplugin.action.OpenInCurrentDirAction" text="Run pip-compile"
+                description="Opens terminal in parent directory of current file and runs pip-compile.">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="CompareClipboardWithSelection"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="RevealIn"/>
+        </action>
     </actions>
 
 <!--    <applicationListeners>-->

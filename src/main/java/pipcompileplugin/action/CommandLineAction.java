@@ -1,4 +1,4 @@
-package com.github.ivarshav.pipcompileplugin.action;
+package pipcompileplugin.action;
 
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -11,11 +11,12 @@ import com.intellij.openapi.project.Project;
 import com.intellij.ui.content.Content;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import static com.github.ivarshav.pipcompileplugin.action.CustomCommandUtil.getConsoleViewContent;
-import static com.github.ivarshav.pipcompileplugin.action.CustomCommandUtil.activateConsoleView;
+import static pipcompileplugin.action.CustomCommandUtil.activateConsoleView;
+import static pipcompileplugin.action.CustomCommandUtil.getConsoleViewContent;
 
 public class CommandLineAction extends AnAction {
     @Override
@@ -25,37 +26,24 @@ public class CommandLineAction extends AnAction {
             return;
         }
         ArrayList<String> cmds = new ArrayList<>();
-        cmds.add("echo hello");
+//        cmds.add("echo");
+//        cmds.add("hello");
         GeneralCommandLine commandLine = new GeneralCommandLine(cmds);
         commandLine.setCharset(StandardCharsets.UTF_8);
         commandLine.setWorkDirectory(project.getBasePath());
+        // project.getProjectFilePath() -> file path
+//        project.getProjectFile().myParent
+
         // One way to create the process and run it
         // Simply create a process from commandline which will start the process
-        /*
-        try {
-            commandLine.createProcess();
-        } catch (ExecutionException exception) {
-            exception.printStackTrace();
-        }
-         */
+
+//        try {
+//            commandLine.createProcess();
+//        } catch (ExecutionException exception) {
+//            exception.printStackTrace();
+//        }
 
         // Second way to create the process is using the ProcessHandler
-        ProcessHandler processHandler = null;
-        try {
-            processHandler = new OSProcessHandler(commandLine);
-        } catch (ExecutionException exception) {
-            exception.printStackTrace();
-        }
-        assert processHandler != null : "Process Handler should not be null";
-
-        /*
-        To monitor the execution of a process and capture its output,
-        the OSProcessHandler class is usually used.
-        Once you’ve created an instance of OSProcessHandler from either a command line or a Process object,
-        you need to call the startNotify() method to capture its output.
-         */
-        processHandler.startNotify();
-
         activateConsoleView(project);
         // Create a consoleView
         Content content = getConsoleViewContent(project);
@@ -65,6 +53,13 @@ public class CommandLineAction extends AnAction {
         // Created GeneralCommandLine
 
         // Create ProcessHandler
+        ProcessHandler processHandler = null;
+        try {
+            processHandler = new OSProcessHandler(commandLine);
+        } catch (ExecutionException exception) {
+            exception.printStackTrace();
+        }
+        assert processHandler != null : "Process Handler should not be null";
 
         // Attach the console to the processHandler
         console.attachToProcess(processHandler);
